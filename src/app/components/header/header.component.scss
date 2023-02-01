@@ -1,0 +1,72 @@
+.flex-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    &.title {
+        justify-content: center;
+
+        svg path {
+            stroke-dasharray: 200px;
+            stroke-dashoffset: 200px;
+            fill-opacity: 0;
+        }
+    }
+}
+
+@for $i from 1 through 9 {
+    div.flex-item.title svg path:nth-child(#{$i}) {
+        animation: anim 3s calc($i/5)+s forwards cubic-bezier(0.420, 0.000, 0.000, 1.000), anim2 1s calc($i/5 + 2)+s forwards linear;
+    }
+}
+
+@keyframes anim {
+    0% {
+        stroke-dashoffset: 200px;
+    }
+
+    100% {
+        stroke-dashoffset: 0px;
+    }
+}
+
+@keyframes anim2 {
+    0% {
+        fill-opacity: 0;
+    }
+
+    100% {
+        fill-opacity: 1;
+    }
+}
+
+
+.header-page {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    width: 100%;
+    background-color: #e9e9e9;
+    z-index: 3;
+    padding: 0.5rem 0.5rem 0.5rem 0;
+}
+
+@media only screen and (max-width: 420px) {
+    .headerText p {
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .headerText p {
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 50px;
+    }
+}

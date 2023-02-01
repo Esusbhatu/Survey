@@ -1,0 +1,22 @@
+<div [formGroup]="form" #inputContainer>
+    <div class="col-md-3" *ngFor="let item of answers.controls; let i = index; let last = last;">
+        <div class="input-group my-3 input-container">
+            <button [disabled]="answers.length < 2 || last" class="btn btn-sm btn-outline-secondary" type="button"
+                (click)="deleteItem(i)">
+                <i class="bi bi-trash3"></i>
+            </button>
+
+            <input type="text" class="form-control" placeholder="" [formControlName]="i" (keyup.enter)="saveItem(i)"
+                (blur)="saveItem(i)">
+
+            <button *ngIf="!item.disabled" class="btn btn-sm btn-outline-success" type="button" (click)="saveItem(i)">
+                <i class="bi bi-check2"></i>
+            </button>
+
+            <button *ngIf="item.disabled" class="btn btn-sm btn-outline-success" type="button" (click)="editItem(i)"
+                [disabled]="isEditing">
+                <i class="bi bi-pencil"></i>
+            </button>
+        </div>
+    </div>
+</div>

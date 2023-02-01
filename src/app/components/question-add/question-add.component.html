@@ -1,0 +1,50 @@
+<app-header [leftButtonText]="headerLeftButtonText" [rightButtonText]="headerRightButtonText" [headerText]="headerText"
+	(leftButtonClick)="onLeftButtonClickInHeader()" (rightButtonClick)="onRightButtonClickInHeader()">
+</app-header>
+
+<form [formGroup]="formGroup" *ngIf="formGroup" class="g-3 needs-validation container mt-2" (ngSubmit)="onSubmit()">
+	<div class="col-md-6">
+		<div class="my-4" *ngIf="!isEditMode">
+			<select class="form-select" formControlName="questionType" (change)="changeType($event)">
+				<option value="" disabled selected>
+					Vraagtype selecteren
+				</option>
+
+				<option *ngFor="let type of QuestionTypes" [value]="type.typeValue">
+					{{ type.typeName }}
+				</option>
+			</select>
+
+			<P *ngIf="isFieldNotValid('questionType')" class="text-danger">
+				Veld is verplicht
+			</P>
+		</div>
+
+		<label for="title" class="form-label">Vraag</label>
+
+		<input formControlName="questionText" type="text" class="form-control" />
+		
+		<P *ngIf="isFieldNotValid('questionText')" class="text-danger">
+			Veld is verplicht
+		</P>
+
+		<div class="my-4 form-check form-switch">
+			<input class="form-check-input" type="checkbox" role="switch" id="activeCheck" formControlName="required"
+				#activeCheck>
+			<label class="form-check-label" for="activeCheck">Verplicht</label>
+		</div>
+	</div>
+
+	<div class="my-2" *ngIf="questionType">
+		<hr>
+		<div class="my-2">
+			<app-question-input [questionId]="questionId" [questionType]="questionType">
+			</app-question-input>
+			<P *ngIf="isFieldNotValid('choices')" class="text-danger">
+				Veld is verplicht
+			</P>
+		</div>
+	</div>
+</form>
+
+<app-footer></app-footer>

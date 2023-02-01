@@ -1,0 +1,11 @@
+<footer>
+    <div class="bg-light py-2">
+        <div class="d-flex justify-content-between">
+            <p class="mb-0 py-2 mx-auto">Snelstart © 2022</p>
+            <button *ngIf="showButton" (click)="removeSurvey.emit()" type="button"
+                class="btn btn-sm border-0 btn-outline-danger my-button justify-content-end">
+                <i class="bi bi-trash3 fs-5"></i>
+            </button>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,27 @@
+<div class="alert-box-wrapper">
+	<div class="alert-box container" [ngClass]="{'show':alerts.length > 0}" *ngFor="let alert of alerts;let i = index">
+		<div class="alert-box-inner">
+			<div class="alert-box-content">
+				<div class="alert-box-header">
+					<h4 class="alert-box-title" [innerHTML]="alert.title"></h4>
+					<!-- <button type="button" class="btn btn-close btn-outline-secondary" (click)="rejectAlert(i)"></button> -->
+					<button type="button" class="btn btn-sm border-0 btn-outline-secondary" (click)="rejectAlert(i)">
+						<i class="bi bi-x-lg fs-5"></i>
+					</button>
+				</div>
+				<div class="alert-box-body">
+					<p [innerHTML]="alert.message"></p>
+				</div>
+				<div class="alert-box-footer">
+					<button type="button" class="btn btn-success m-1 w-100" (click)="confirmAlert(i)">Doorgaan</button>
+					<button type="button" class="btn btn-danger m-1 w-100" (click)="rejectAlert(i)">Annuleren</button>
+				</div>
+				<!-- <div class="alert-box-footer">
+					<button type="button" class="btn btn-secondary" (click)="confirmAlert(i)">Doorgaan</button>
+					<button type="button" class="btn btn-secondary" (click)="rejectAlert(i)">Annuleren</button>
+				</div> -->
+			</div>
+		</div>
+	</div>
+	<div class="dropshadow" [ngClass]="{'show':alerts.length > 0}" (click)="rejectAlert()"></div>
+</div>

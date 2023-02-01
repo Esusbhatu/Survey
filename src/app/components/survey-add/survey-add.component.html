@@ -1,0 +1,51 @@
+<app-header [leftButtonText]="headerLeftButtonText" [rightButtonText]="headerRightButtonText" [headerText]="headerText"
+	(leftButtonClick)="onLeftButtonClickInHeader()" (rightButtonClick)="onRightButtonClickInHeader()">
+</app-header>
+
+<div class="mt-3">
+	<form [formGroup]="formGroup" *ngIf="this.formGroup" class="needs-validation container" (ngSubmit)="onSubmit()">
+		<div class="col-md-6">
+			<div class="mt-4">
+				<label for="title" class="form-label">Titel</label>
+				<input formControlName="title" type="text" class="form-control" />
+				<P *ngIf="isFieldNotValid('title')" class="text-danger">
+					Veld is verplicht
+				</P>
+			</div>
+
+			<div class="mt-4">
+				<label for="description" class="form-label">Beschrijving</label>
+				<input formControlName="description" id="description" type="text" class="form-control" />
+				<P *ngIf="isFieldNotValid('description')" class="text-danger">
+					Veld is verplicht
+			</div>
+
+			<div class="mt-4" *ngIf="!isEditMode">
+				<label for="owner" class="form-label">Eigenaar</label>
+				<input formControlName="owner" id="owner" type="text" class="form-control" />
+				<P *ngIf="isFieldNotValid('owner')" class="text-danger">
+					Veld is verplicht
+				</P>
+			</div>
+
+			<div class="mt-4">
+				<label for="startDate" class="form-label">Startdatum</label>
+				<input formControlName="startDate" id="startDate" type="date" class="form-control" #firstDateInput
+					type="date" [min]="tomorrow" (blur)="setDates(firstDateInput.value, 'firstDate')" />
+				<P *ngIf="isFieldNotValid('startDate')" class="text-danger">
+					Veld is verplicht
+			</div>
+
+
+			<div class="mt-4">
+				<label for="endDate" class="form-label">Einddatum</label>
+				<input formControlName="endDate" id="endDate" type="date" class="form-control" #secondDateInput
+					[min]="minSecondDate" (blur)="setDates(secondDateInput.value, 'secondDate')" />
+				<P *ngIf="isFieldNotValid('endDate')" class="text-danger">
+					Veld is verplicht
+			</div>
+		</div>
+	</form>
+</div>
+
+<app-footer></app-footer>

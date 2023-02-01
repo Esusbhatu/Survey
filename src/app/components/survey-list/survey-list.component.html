@@ -1,0 +1,52 @@
+<app-header [leftButtonText]="headerLeftButtonText" [headerText]="headerText"
+	RightButtonIconClass="bi bi-plus-lg fs-5 p-1" [showRightButtonIcon]="true"
+	(leftButtonClick)="onLeftButtonClickInHeader()" (rightButtonClick)="onRightButtonClickInHeader()">
+</app-header>
+
+<div *ngIf="surveyList.length != 0">
+	<div class="d-flex justify-content-center mt-2">
+		<div class="col-md-8">
+			<div class="input-group">
+				<select class="form-select input-group" [(ngModel)]="filterType"
+					(change)="filterText.value = ''; filter(filterText.value)">
+					<option value="none" disabled selected>Sorteren op</option>
+					<option value="none">Geen</option>
+					<option value="0">Titel</option>
+					<option value="1">Eigenaar</option>
+					<option value="1">status</option>
+					<option value="2">startdatum</option>
+					<option value="3">einddatum</option>
+				</select>
+
+				<input type="text" #filterText class="form-control" placeholder="Zoeken"
+					[disabled]="filterType == 'none' ? true : null" />
+
+				<button class="btn btn-outline-secondary" type="button" (click)="filter(filterText.value)">
+					<i class="bi bi-search"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<p *ngIf="!filteredSurveys" class="h4 text-muted text-center mt-5">
+		Helaas! Wij vonden geen enquête voor jouw zoekopdracht
+		"{{ filterText.value }}"
+	</p>
+</div>
+
+<div *ngIf="surveyList.length <= 0">
+	<hr />
+	<p class="h3 text-muted text-center mt-5">Geen enquête</p>
+</div>
+
+<div class="list-group rounded-0 mt-2">
+	<a *ngFor="let item of filteredSurveys; let i = index" [routerLink]="['/survey/edit', item.getId]"
+		class="list-group-item list-group-item-action pt-3 pb-3">
+		<i style="font-size: 15px;" class="bi"
+			[ngClass]="{'bi-circle text-success': item.status == 0,'bi-circle-fill text-success': item.status == 1,'bi-lock-fill text-secondary': item.status == 2}"></i>
+		{{ item.title }}
+		<i class="bi bi-chevron-right float-end"></i>
+	</a>
+</div>
+
+<app-footer></app-footer>
